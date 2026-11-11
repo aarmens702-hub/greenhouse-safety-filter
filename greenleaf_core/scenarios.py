@@ -9,7 +9,8 @@ WEATHER_DIR/<location>/<growth_year>.csv and starts the season on day start_day.
   (CC0), converted to gl_gym's format; it lives in this repository under data/weather
   (AGC_WEATHER_DIR, see data/README.md). Scripts switch WEATHER_DIR to it for location "Wag".
 
-Years 2012-2023 are sealed test weather in the wider project: nothing here may simulate them.
+Sealed test weather in the wider project, which nothing here may simulate: 2012 and 2013 at any
+location, and 2014-2023 for Amsterdam, London and Abbotsford.
 Adapted from greenleaf_control/scenarios.py (greenleaf-dashboard, commit 701b43e).
 """
 
@@ -29,9 +30,12 @@ TRAIN_SAMPLER_KWARGS = {
     "start_days": list(range(45, 76)),
 }
 
-SEALED_YEARS = frozenset(range(2012, 2024))
+SEALED_YEARS = frozenset({2012, 2013})                     # every location
+SEALED_CITY_YEARS = frozenset(range(2014, 2024))            # these locations only
+SEALED_CITIES = frozenset({"Amsterdam", "London", "Abbotsford"})
 
 
 def is_test(scenario: dict) -> bool:
-    """True for any scenario in a sealed year, at any location."""
-    return scenario["growth_year"] in SEALED_YEARS
+    """True for any scenario on sealed weather."""
+    year = scenario["growth_year"]
+    return year in SEALED_YEARS or (year in SEALED_CITY_YEARS and scenario["location"] in SEALED_CITIES)

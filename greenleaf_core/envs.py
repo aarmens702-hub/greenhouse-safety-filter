@@ -9,7 +9,7 @@ RL agents' env ("ppo") and always puts SolverFailureFlag on top.
   of upstream's swallowed solver failures.
 - The rule-based controller works on the raw env (absolute controls, raw state), below anything
   that normalizes observations or actions.
-- A season that would read sealed weather (scenarios.SEALED_YEARS) is refused: its own year, or the
+- A season that would read sealed weather (scenarios.is_test) is refused: its own year, or the
   next year's file, which upstream appends when the season plus its 0.5-day lookahead runs past the
   end of the year.
 - Every step's info carries x_prev and x, the raw state before and after the step (for metrics).
@@ -42,7 +42,7 @@ REWARD_PRICES = {
     "sim": {},
     "agc2020": {"fruit_price": 1.6, "heating_price": 0.03, "elec_price": 0.06, "co2_price": 0.08},
 }
-_REFUSED = "sealed test weather (scenarios.SEALED_YEARS)"
+_REFUSED = "sealed test weather (scenarios.is_test)"
 
 
 def _refuse_test(s: dict, season_length: int) -> None:
