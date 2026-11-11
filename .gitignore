@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store
+
+# new run outputs (the frozen paper results live in results/ and are tracked)
+outputs/
+
+# trained agents: download from the GitHub release into models/<tag>/ (see README)
+models/*
+!models/README.md
+
+# LaTeX build files
+*.aux
+*.log
+*.synctex.gz

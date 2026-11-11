@@ -1,0 +1,12 @@
+# Python 3.12. Versions are the ones every result in this repository was produced with.
+# GreenLight-Gym2 (gl_gym 0.3.2) is installed from GitHub at the exact commit used.
+gl-gym @ git+https://github.com/BartvLaatum/GreenLight-Gym2@2d3febb1ea002b24b452e32293e990beb78d3ce1
+casadi==3.8.2
+gymnasium==0.29.0
+numpy==1.26.4
+scipy==1.17.1
+pandas==3.0.6
+pyyaml==6.0.3
+torch==2.14.1
+stable-baselines3==2.3.2
+matplotlib==3.11.2
