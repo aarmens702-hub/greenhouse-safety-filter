@@ -4,8 +4,8 @@ PROTOCOL and docs/ references point to that repository.
 
 The independent grader: per-episode metrics from raw states and controls (PROTOCOL §4).
 
-This is a scorer file. It never imports the reward or env code (greenleaf_control.rewards,
-greenleaf_control.envs) or anything from gl_gym, whose conversion helpers load its reward module,
+This is a scorer file. It never imports the reward or env code (greenleaf_core.rewards,
+greenleaf_core.envs) or anything from gl_gym, whose conversion helpers load its reward module,
 so a reward bug can't hide inside the score. Every formula is written here from the model's units
 and PROTOCOL §1's price regimes and bounds; upstream's per-step info (gl_gym @2d3febb) is a
 cross-check in the tests, not shared code.
