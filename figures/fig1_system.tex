@@ -1,0 +1,45 @@
+% Figure 1, the simple system diagram plus slider names and model copy vs real parameters. Compile standalone with: tectonic -X compile fig1_system.tex (or pdflatex)
+\documentclass[border=4pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,fit,backgrounds,calc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\begin{document}
+\begin{tikzpicture}[
+  font=\footnotesize,
+  box/.style={draw, rounded corners=2pt, align=center, inner sep=3pt, line width=0.5pt},
+  ctrl/.style={box, fill=gray!12, text width=24mm, minimum height=10mm},
+  plant/.style={box, fill=green!10, text width=24mm, minimum height=10mm},
+  sub/.style={box, fill=blue!7, text width=38mm, minimum height=8mm},
+  arr/.style={-{Stealth[length=1.8mm]}, line width=0.6pt},
+  lab/.style={font=\scriptsize, align=center, inner sep=1.5pt}
+]
+% nodes (absolute positions, cm)
+\node[ctrl]  (c)    at (-0.35, 0)      {\textbf{Controller}\\rules \emph{or} RL\\[2pt]{\scriptsize sets boiler, CO$_2$, vents,\\lamps, 2 screens}};
+\node[sub]   (pred) at (4.3, 1.45) {\textbf{1. Predict} the next hour\\[-1pt]{\scriptsize own model copy, parameters $\hat p$}};
+\node[sub]   (dec)  at (4.3, 0)    {\textbf{2. Any limit broken?}\\[-1pt]{\scriptsize RH, temperature, CO$_2$}};
+\node[sub]   (fix)  at (4.3, -1.45) {\textbf{3. Smallest safe change}\\[-1pt]{\scriptsize $\min\, \lVert u-u^{\mathrm{prop}}\rVert^2$}};
+\begin{scope}[on background layer]
+  \node[draw, dashed, rounded corners=3pt, fill=blue!2, inner xsep=5pt, inner ysep=4pt, fit=(pred)(dec)(fix)] (F) {};
+\end{scope}
+\node[font=\footnotesize\bfseries, anchor=south] at (F.north) {Physics safety filter};
+\coordinate (m) at ($(F.east)+(0.55,0)$);
+\node[plant] (g) at (9.75, 0) {\textbf{Greenhouse}\\{\scriptsize real parameters $p$}};
+
+% forward path
+\draw[arr] (c.east) -- ++(0.35,0) |- (pred.west);
+\node[lab, above left] at ($(pred.west)+(-0.12,0)$) {proposed $u^{\mathrm{prop}}$};
+\draw[arr] (pred) -- (dec);
+\draw[arr] (dec) -- node[lab, right]{yes} (fix);
+\draw[line width=0.6pt] (dec.east) -- node[lab, above, pos=0.62]{no} (m);
+\draw[line width=0.6pt] (fix.east) -| (m);
+\draw[arr] (m) -- node[lab, above]{applied $u$} (g.west);
+
+% feedback path
+\coordinate (b) at (-0.35, -2.75);
+\draw[arr] (g.south) |- (b) -- (c.south);
+\node[lab, anchor=north] at ($(b)!0.5!(g.south |- b)$) {measured climate and weather, every 15 minutes};
+\draw[arr, densely dotted] (F.south |- b) -- (F.south);
+\node[lab, text=red!70!black, anchor=north] at ($(F.south east)!0.5!(g.south)+(0.2,-0.25)$) {$\hat p$ may differ from $p$};
+\end{tikzpicture}
+\end{document}

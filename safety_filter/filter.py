@@ -47,7 +47,8 @@ class Filter:
     h: lookahead steps. biased: add BIAS_T to the outdoor temperature the filter's model sees.
     observer, noise, noise_seed, noise_mult: what the filter knows of the state (see estimate).
     lowrh: also keep predicted RH above 51% (calibration study).
-    on_decision: optional callback(filter, x, u_prop, u_applied) after every decision (logging only).
+    on_decision: optional callback(filter, x, u_prop, u_applied, searched) after every decision, where
+        searched says the proposal was predicted unsafe and the search ran (logging only; Figure 2).
     """
 
     def __init__(s, raw, limit, obj="mindev", h=4, biased=False, *, observer=False, noise=False,
@@ -103,7 +104,7 @@ class Filter:
         t0 = time.perf_counter(); x = s.estimate(); u_nom = np.array(u_nom, dtype=np.float64)
         r = s.roll(x, u_nom)
         if r is None or r[0] == 0:
-            if s.on_decision: s.on_decision(s, x, u_nom.copy(), u_nom.copy())
+            if s.on_decision: s.on_decision(s, x, u_nom.copy(), u_nom.copy(), False)
             s.u_prev = u_nom; return u_nom
         s.hits += 1
         def J(u, r):
@@ -116,6 +117,6 @@ class Filter:
                     uc = u.copy(); uc[k] = g; rc = s.roll(x, uc)
                     if rc is not None and J(uc, rc) < best-1e-9: best, u = J(uc, rc), uc
         s.tmax = max(s.tmax, time.perf_counter()-t0)
-        if s.on_decision: s.on_decision(s, x, u_nom.copy(), u.copy())
+        if s.on_decision: s.on_decision(s, x, u_nom.copy(), u.copy(), True)
         s.u_prev = u
         return u
