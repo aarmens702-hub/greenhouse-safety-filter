@@ -33,7 +33,7 @@ b.scatter([be], [yb], color="black", s=14, zorder=4)
 b.annotate(f"break-even €{be:.2f}/kg", (be, yb), xytext=(be + .15, yb - 4.5), fontsize=7, arrowprops=dict(arrowstyle="-", lw=.6))
 ym0, ym1 = r0 + r1*2.5, l0 + l1*2.5
 b.plot([2.5, 2.5], [ym0, ym1], color=C["accent"], lw=1.6)
-b.text(2.44, (ym0 + ym1)/2, f"+€{ym1 - ym0:.1f}/m²\nat €2.50", color=C["accent"], fontsize=7, fontweight="bold", va="center", ha="right")
+b.text(2.56, ym0 - 1, f"+€{ym1 - ym0:.2f}/m²\nat €2.50", color=C["accent"], fontsize=7, fontweight="bold", va="top", ha="left")  # right of the bracket, under the rules line
 b.text(2.95, 11, "RL + filter earns more →", ha="right", va="center", fontsize=6.8, color=C["rl+filter"])
 b.set_xlim(fr[0], fr[-1]); b.set_xlabel("Fruit price (€/kg)"); b.set_ylabel("Profit (€/m² per season)")
 b.set_title("(b) Profit vs fruit price (challenge energy prices)", loc="left", fontsize=8.5)
