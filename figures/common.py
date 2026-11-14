@@ -17,8 +17,8 @@ C = {"rules": "#9A9A9A", "rules+filter": "#4D4D4D", "rl": "#56B4E9", "rl+filter"
      "ams": "#E69F00", "wag": "#009E73", "accent": "#D55E00"}
 COL1, COL2 = 3.3, 7.0     # AAAI one-column and full-width figure widths, inches
 
-plt.rcParams.update({"font.family": "serif", "font.size": 8, "axes.titlesize": 8, "axes.labelsize": 8,
-                     "xtick.labelsize": 7, "ytick.labelsize": 7, "legend.fontsize": 7, "axes.spines.top": False,
+plt.rcParams.update({"font.family": "serif", "font.size": 9, "axes.titlesize": 9, "axes.labelsize": 9,
+                     "xtick.labelsize": 9, "ytick.labelsize": 9, "legend.fontsize": 9, "axes.spines.top": False,
                      "axes.spines.right": False, "pdf.fonttype": 42, "savefig.bbox": "tight", "savefig.pad_inches": 0.02})
 
 _FROZEN = {m.group(2): m.group(1) for m in re.finditer(r"^([0-9a-f]{64})\s+(\S+)$", (ROOT/"docs"/"FROZEN.md").read_text(), re.M)}

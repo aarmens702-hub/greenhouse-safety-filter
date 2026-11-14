@@ -23,20 +23,20 @@ over = (raw["rh"] > 85).astype(float)
 w = 2*D; start = int(np.argmax(np.convolve(over, np.ones(w), "valid")))
 sl = slice(start, start + w); t = np.arange(N)[sl]/D
 
-fig, (a, b) = plt.subplots(2, 1, figsize=(COL1, 2.7), sharex=True, gridspec_kw={"height_ratios": [1.7, 1]})
+fig, (a, b) = plt.subplots(2, 1, figsize=(COL1, 3.1), sharex=True, gridspec_kw={"height_ratios": [1.7, 1]})
 h_raw, h_fil = over[sl].sum()*.25, float((fil["rh"][sl] > 85).sum()*.25)
 a.plot(t, raw["rh"][sl], color=C["rules"], lw=.9, label="rules alone")
 a.plot(t, fil["rh"][sl], color=C["rules+filter"], lw=1.1, label="rules + filter")
-a.axhline(85, color=C["accent"], ls="--", lw=.8); a.text(t[-1] + .04, 85, "85%\nlimit", color=C["accent"], fontsize=6, va="center", ha="left", clip_on=False, linespacing=.9)
-lo = min(raw["rh"][sl].min(), fil["rh"][sl].min()); a.set_ylim(max(55, lo - 1), 100)
-a.text(t[0] + .02, 98.6, f"Above 85% in these 2 days:\nrules alone {h_raw:.0f} h, with filter {h_fil:.0f} h", fontsize=6.3, va="top", ha="left", fontweight="bold")
-a.legend(frameon=False, fontsize=6.3, loc="lower left", bbox_to_anchor=(0.04, 0.0), handlelength=1.8, labelspacing=.25, borderaxespad=.2)
-a.set_ylabel("Relative humidity (%)", fontsize=7)
+a.axhline(85, color=C["accent"], ls="--", lw=.8); a.text(t[-1] + .04, 85, "85%\nlimit", color=C["accent"], fontsize=9, va="center", ha="left", clip_on=False, linespacing=.9)
+lo = min(raw["rh"][sl].min(), fil["rh"][sl].min()); a.set_ylim(min(60, lo - 12), 100)  # empty band under the curves holds the legend
+a.text(t[0] + .02, 98.6, f"Above 85% in these 2 days:\nrules alone {h_raw:.0f} h, with filter {h_fil:.0f} h", fontsize=9, va="top", ha="left", fontweight="bold")
+a.legend(frameon=False, fontsize=9, loc="lower center", ncol=2, handlelength=1.6, columnspacing=1.2, borderaxespad=.2)
+a.set_ylabel("RH (%)", fontsize=9)
 
 VENT = 3
 b.plot(t, raw["u"][sl, VENT], color=C["rules"], lw=.9)               # vents actually applied, rules alone
 b.plot(t, appl[sl, VENT], color=C["rules+filter"], lw=1.1)             # vents actually applied, rules + filter (same colours as top)
-b.set_ylabel("Vent opening (0-1)", fontsize=7); b.set_ylim(-.05, 1.05); b.set_xlabel("Day of season")
+b.set_ylabel("Vent opening", fontsize=9); b.set_ylim(-.05, 1.05); b.set_xlabel("Day of season")
 fig.tight_layout(h_pad=.4); save(fig, "fig2_in_action")
 rv, fv = raw["u"][sl, VENT], appl[sl, VENT]
 print("vents in window: rules alone mean", round(float(rv.mean()), 2), "(>0.5 in", round(100*float((rv > .5).mean())), "% of steps); with filter mean", round(float(fv.mean()), 2),
