@@ -1,4 +1,4 @@
-"""Table 1: exact numbers, original 6 seasons, nominal plant. Writes table1.tex (for the paper) and table1_preview.tex
+"""Table 1: exact numbers, original 6 seasons, default parameters. Writes table1.tex (for the paper) and table1_preview.tex
 (standalone, compiled to a PDF for viewing). Source: numbers.json T4 only."""
 import statistics as S
 from common import *
@@ -21,17 +21,17 @@ tab = f"""\\begin{{table}}[t]
 \\centering\\small
 \\begin{{tabular}}{{lrrr}}
 \\toprule
-Controller & Violation h & Yield (kg/m$^2$) & Profit (\\euro/m$^2$) \\\\
+Controller & Violations (h) & Yield (kg/m$^2$) & Profit (\\euro/m$^2$) \\\\
 \\midrule
 {body}
 \\bottomrule
 \\end{{tabular}}
-\\caption{{Per 60-day season, original 6 seasons, nominal plant. RL agents are trained at the prices they are scored at; RL rows are mean $\\pm$ SD over 3 seeds.}}
+\\caption{{Mean results per 60-day season over the original 6 seasons, default parameters. Violation hours count all three limits. The rules rows are the same runs in both blocks, scored at different prices. RL agents are trained at the prices they are scored at; RL rows are mean $\\pm$ SD over 3 seeds.}}
 \\label{{tab:main}}
 \\end{{table}}
 """
 OUT.mkdir(exist_ok=True); (OUT/"table1.tex").write_text(tab)
 prev = ("\\documentclass[border=6pt]{standalone}\n\\usepackage{booktabs,eurosym}\n\\usepackage[T1]{fontenc}\n\\begin{document}\n\\small\\begin{tabular}{lrrr}\n\\toprule\n"
-        "Controller & Violation h & Yield (kg/m$^2$) & Profit (\\euro/m$^2$) \\\\\n\\midrule\n" + body + "\n\\bottomrule\n\\end{tabular}\n\\end{document}\n")
+        "Controller & Violations (h) & Yield (kg/m$^2$) & Profit (\\euro/m$^2$) \\\\\n\\midrule\n" + body + "\n\\bottomrule\n\\end{tabular}\n\\end{document}\n")
 (OUT/"table1_preview.tex").write_text(prev)
 print(body)

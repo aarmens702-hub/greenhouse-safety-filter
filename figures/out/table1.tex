@@ -2,7 +2,7 @@
 \centering\small
 \begin{tabular}{lrrr}
 \toprule
-Controller & Violation h & Yield (kg/m$^2$) & Profit (\euro/m$^2$) \\
+Controller & Violations (h) & Yield (kg/m$^2$) & Profit (\euro/m$^2$) \\
 \midrule
 \multicolumn{4}{l}{\textit{\euro2.50 fruit, challenge energy prices}} \\
 \quad Rules & 380.2 & 12.61 & 23.55 \\
@@ -17,6 +17,6 @@ Controller & Violation h & Yield (kg/m$^2$) & Profit (\euro/m$^2$) \\
 \quad RL + filter & 7.0 $\pm$ 1.1 & 15.80 $\pm$ 0.21 & 7.25 $\pm$ 0.46 \\
 \bottomrule
 \end{tabular}
-\caption{Per 60-day season, original 6 seasons, nominal plant. RL agents are trained at the prices they are scored at; RL rows are mean $\pm$ SD over 3 seeds.}
+\caption{Mean results per 60-day season over the original 6 seasons, default parameters. Violation hours count all three limits. The rules rows are the same runs in both blocks, scored at different prices. RL agents are trained at the prices they are scored at; RL rows are mean $\pm$ SD over 3 seeds.}
 \label{tab:main}
 \end{table}
