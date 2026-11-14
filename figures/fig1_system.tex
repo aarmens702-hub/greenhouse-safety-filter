@@ -17,23 +17,23 @@
 % nodes (absolute positions, cm)
 \node[ctrl]  (c)    at (-0.35, 0)      {\textbf{Controller}\\rules \emph{or} RL\\[2pt]{\scriptsize sets boiler, CO$_2$, vents,\\lamps, 2 screens}};
 \node[sub]   (pred) at (4.3, 1.45) {\textbf{1. Predict} the next hour\\[-1pt]{\scriptsize own model copy, parameters $\hat p$}};
-\node[sub]   (dec)  at (4.3, 0)    {\textbf{2. Any limit broken?}\\[-1pt]{\scriptsize RH, temperature, CO$_2$}};
-\node[sub]   (fix)  at (4.3, -1.45) {\textbf{3. Smallest safe change}\\[-1pt]{\scriptsize $\min\, \lVert u-u^{\mathrm{prop}}\rVert^2$}};
+\node[sub]   (dec)  at (4.3, 0)    {\textbf{2. Too close to a limit?}\\[-1pt]{\scriptsize RH, temperature, CO$_2$}};
+\node[sub]   (fix)  at (4.3, -1.45) {\textbf{3. Smallest safe change}\\[-1pt]{\scriptsize $\min\, \lVert u-\tilde{u}_t\rVert^2$}};
 \begin{scope}[on background layer]
   \node[draw, dashed, rounded corners=3pt, fill=blue!2, inner xsep=5pt, inner ysep=4pt, fit=(pred)(dec)(fix)] (F) {};
 \end{scope}
-\node[font=\footnotesize\bfseries, anchor=south] at (F.north) {Physics safety filter};
+\node[font=\footnotesize\bfseries, anchor=south] at (F.north) {Predictive safety filter};
 \coordinate (m) at ($(F.east)+(0.55,0)$);
-\node[plant] (g) at (9.75, 0) {\textbf{Greenhouse}\\{\scriptsize real parameters $p$}};
+\node[plant] (g) at (9.75, 0) {\textbf{Greenhouse}\\{\scriptsize true parameters $p$}};
 
 % forward path
 \draw[arr] (c.east) -- ++(0.35,0) |- (pred.west);
-\node[lab, above left] at ($(pred.west)+(-0.12,0)$) {proposed $u^{\mathrm{prop}}$};
+\node[lab, above left] at ($(pred.west)+(-0.12,0)$) {proposed $\tilde{u}_t$};
 \draw[arr] (pred) -- (dec);
 \draw[arr] (dec) -- node[lab, right]{yes} (fix);
 \draw[line width=0.6pt] (dec.east) -- node[lab, above, pos=0.62]{no} (m);
 \draw[line width=0.6pt] (fix.east) -| (m);
-\draw[arr] (m) -- node[lab, above]{applied $u$} (g.west);
+\draw[arr] (m) -- node[lab, above]{applied $u_t$} (g.west);
 
 % feedback path
 \coordinate (b) at (-0.35, -2.75);
