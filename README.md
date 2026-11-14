@@ -1,22 +1,36 @@
 # Greenhouse safety filter
 
-Code, frozen results and figure scripts for a workshop paper (title to be announced) on a
-physics-model predictive safety filter for greenhouse climate control in
-[GreenLight-Gym](https://github.com/BartvLaatum/GreenLight-Gym2) (gl_gym 0.3.2). Every 15 minutes a
-controller (tuned rules or a PPO-Lagrangian RL agent) proposes six actuator settings. The filter
-simulates the next hour (4 steps) on its own copy of the greenhouse model, holding that action. If a
-limit would break (RH 50-85%, temperature 15-34 C, CO2 300-1600 ppm; internal margins RH 84%,
-T 15.5/33.5 C, CO2 320/1580 ppm), it picks the smallest change it can find by coordinate search
-(steps of ±0.1, 0.25 and 0.5; vents, boiler, thermal screen, blackout screen, lamps, CO2; two passes)
-that minimises 1000 × predicted violation + ‖u − ũ_t‖², where ũ_t is the controller's proposal (`u_prop` in the code). It gives no guarantee.
+Code, frozen results and figure scripts for the workshop paper *Separating Safety from Profit: A
+Predictive Safety Filter for Greenhouse Climate Control* (2026), built on
+[GreenLight-Gym](https://github.com/BartvLaatum/GreenLight-Gym2) (gl_gym 0.3.2).
 
-Main results (simulated and exploratory; 60-day seasons, mean of 6 seasons, RL mean of 3 seeds):
+![The predictive safety filter](figures/out/fig1_system.png)
+
+## How the filter works
+
+- Every 15 minutes a controller, either tuned rules or a PPO-Lagrangian RL agent, proposes six
+  actuator settings: boiler, CO2 dosing, thermal screen, vents, lamps and blackout screen.
+- The filter simulates the next hour (4 steps) on its own copy of the greenhouse model, holding that
+  action.
+- If the forecast stays inside margins just within the limits (limits RH 50-85%, temperature
+  15-34 °C, CO2 300-1600 ppm; margins RH 84%, 15.5/33.5 °C, 320/1580 ppm), the action passes
+  unchanged.
+- Otherwise a coordinate search (steps of ±0.1, 0.25 and 0.5; vents, boiler, thermal screen,
+  blackout screen, lamps, CO2; two passes) picks the action minimising
+  1000 × predicted violation + ‖u − ũ_t‖², where ũ_t is the controller's proposal (`u_prop` in the
+  code).
+- The filter gives no formal guarantee: the search is approximate and it looks only one hour ahead.
+
+## Main results
+
+Simulated and exploratory; 60-day seasons, mean of 6 seasons, RL mean of 3 seeds.
 
 - Violation hours per season: rules 380 → 42 with the filter; RL 84 → 5.
 - At fruit €2.50/kg and challenge energy prices, RL + filter earns €4.93/m² more than rules + filter
-  (SD 0.45 over seeds, ahead in 18 of 18 season-seed pairs); break-even fruit price €1.19/kg.
-- Calibration: with the default model on a differently calibrated greenhouse, the filter is worse than
-  no filter; what matters most is that the model has the greenhouse geometry right.
+  (SD 0.45 over seeds, ahead in 18 of 18 season-seed pairs); break-even fruit price €1.19/kg
+  (€1.68/kg at Dutch energy prices).
+- Model accuracy: on a greenhouse with fitted parameters, a filter using the default model is worse
+  than no filter; getting the greenhouse geometry right matters most.
 
 ## Layout
 
@@ -70,7 +84,7 @@ number of parallel workers.
 1. Agents. Download the six trained agents from the GitHub release into `models/` (see
    `models/README.md`), or train them: `python controllers/run_ppolag.py WORKERS` trains the
    paper's six agents plus three exploratory ones (2M steps each, about 70 minutes per agent on one laptop core, so hours
-   in total) and scores each unfiltered on the 6 original seasons, nominal and mismatch
+   in total) and scores each unfiltered on the 6 original seasons, default parameters and mismatch
    (`results/ppolag/scores.jsonl`; seconds per season). One agent:
    `python controllers/train_ppolag.py 0 0.01 --price agc25`.
 2. Main comparison and model mismatch (Table 1, Figure 3, T4, T4b, T7):
@@ -127,3 +141,8 @@ and no sealed test weather was used.
 ## Citation
 
 Paper details to follow. Until then, see `CITATION.cff`.
+
+## Citation
+
+If you use this code, please cite the paper (full reference to follow) and GreenLight-Gym
+(van Laatum, van Henten and Boersma, 2025). `CITATION.cff` holds the software citation.

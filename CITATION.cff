@@ -1,9 +1,11 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite it as below."
-title: "TBD"
+title: "Greenhouse safety filter: code for \"Separating Safety from Profit: A Predictive Safety Filter for Greenhouse Climate Control\""
 authors:
   - family-names: Sidhu
     given-names: Aarmen
 type: software
 license: AGPL-3.0-or-later
-date-released: 2026-11-10
+date-released: 2026-11-13
+version: 1.0.0
+repository-code: "https://github.com/aarmens702-hub/greenhouse-safety-filter"
