@@ -1,5 +1,5 @@
 """Violation hours for Figure 3a, split into humidity and temperature + CO2, at AGC f2.5 with AGC-trained agents,
-original 6 seasons, nominal plant; checks the totals equal the frozen hours in numbers.json. Builds H:
+original 6 seasons, default parameters; checks the totals equal the frozen hours in numbers.json. Builds H:
 {group: (humidity hours per seed, temperature + CO2 hours per seed, total per seed)}. Imported by fig3_performance.py.
 (The first half of the paper's helpers/fig3_hours.py.)"""
 import statistics as S

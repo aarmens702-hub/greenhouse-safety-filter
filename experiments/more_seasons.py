@@ -1,6 +1,6 @@
 """Six new seasons, pre-registered 2026-11-06 (docs/preregistration_filter.md, "More seasons"; paper T6):
 Amsterdam 2010 starts 15, 30, 90, 105 and Wag 2020 starts 25, 65; AGC-tuned rules raw and filtered, and the
-six PPO-Lagrangian agents filtered, nominal plant.
+six PPO-Lagrangian agents filtered, default parameters.
 
 Usage: python experiments/more_seasons.py WORKERS [--out PATH]   (default outputs/stage_more.jsonl)
 48 seasons, 42 of them filtered (2-15 min each). Resumes; a run over 45 min of awake time is killed and

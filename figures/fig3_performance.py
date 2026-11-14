@@ -1,6 +1,6 @@
 """Figure 3: (a) violation hours; (b) break-even chart at challenge energy prices: profit of rules + filter and
 RL + filter vs fruit price, crossover and the measured gap at €2.50 marked. The Dutch-energy break-even
-(€1.68/kg; -0.3 at €1.60) is in the caption/text. Sources: numbers.json T4 and hash-checked rows (hours.py)."""
+(€1.68/kg; -0.26 at €1.60) is in the caption/text. Sources: numbers.json T4 and hash-checked rows (hours.py)."""
 import statistics as S
 import numpy as np
 from common import *

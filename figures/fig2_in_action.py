@@ -1,4 +1,4 @@
-"""Figure 2: the filter in action (illustrative; agc-rules, Amsterdam 2010 day 59, nominal plant).
+"""Figure 2: the filter in action (illustrative; agc-rules, Amsterdam 2010 day 59, default parameters).
 Two separate closed-loop runs on the same weather: rules alone and rules + filter.
 Top: RH in each run, with the 85% limit. Bottom: the vent opening actually applied in each run (rules alone vent late
 and wide, after RH is already high; with the filter the vents open early and a little). Window = the 2 days where rules

@@ -1,5 +1,5 @@
 """Main comparison and model mismatch (paper Table 1, Figure 3, mismatch results): the AGC-tuned rules raw and
-filtered, and the six PPO-Lagrangian agents filtered, on the 6 original seasons, nominal plant and mismatch.
+filtered, and the six PPO-Lagrangian agents filtered, on the 6 original seasons, default parameters and mismatch.
 The agents' unfiltered rows come from controllers/run_ppolag.py.
 
 Usage: python experiments/main_comparison.py WORKERS [--out PATH]   (default outputs/stage_real.jsonl)

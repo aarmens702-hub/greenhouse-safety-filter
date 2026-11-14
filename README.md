@@ -8,7 +8,7 @@ simulates the next hour (4 steps) on its own copy of the greenhouse model, holdi
 limit would break (RH 50-85%, temperature 15-34 C, CO2 300-1600 ppm; internal margins RH 84%,
 T 15.5/33.5 C, CO2 320/1580 ppm), it picks the smallest change it can find by coordinate search
 (steps of ±0.1, 0.25 and 0.5; vents, boiler, thermal screen, blackout screen, lamps, CO2; two passes)
-that minimises 1000 × predicted violation + ‖u − u_prop‖². It gives no guarantee.
+that minimises 1000 × predicted violation + ‖u − ũ_t‖², where ũ_t is the controller's proposal (`u_prop` in the code). It gives no guarantee.
 
 Main results (simulated and exploratory; 60-day seasons, mean of 6 seasons, RL mean of 3 seeds):
 
@@ -111,7 +111,7 @@ and no sealed test weather was used.
 
 ## Data and licences
 
-- Code in this repository: MIT (`LICENSE`).
+- Code in this repository: AGPL-3.0-or-later (`LICENSE`), matching gl_gym and the greenleaf-dashboard code it reuses.
 - GreenLight-Gym2 / gl_gym 0.3.2 (van Laatum, van Henten and Boersma), installed as a dependency,
   AGPL-3.0-or-later. Its bundled Amsterdam 2008-2011 weather is read from the installed package, not
   copied. `greenleaf_core/configs/ppo.yml` is an unmodified copy of its PPO settings and keeps its
