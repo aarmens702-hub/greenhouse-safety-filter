@@ -19,8 +19,8 @@ for loc, lab, col in SITES:
     a.scatter([0], [y0], facecolor="white", edgecolor=col, s=14, zorder=3)
     a.axhline(base[loc], color=col, ls="--", lw=.8)
 a.text(101, base["Wag"] + 6, "no filter", ha="right", va="bottom", fontsize=7, color="#444444")
-a.set_xticks([0, 25, 50, 75, 100], ["0%\n(default)", "25%", "50%", "75%", "100%\n(right)"])
-a.set_xlabel("Filter's model: share of the way from default to real")
+a.set_xticks([0, 25, 50, 75, 100], ["0%\n(default)", "25%", "50%", "75%", "100%\n(fitted)"])
+a.set_xlabel("Filter's model: share of the way from default to fitted")
 a.set_ylabel("Violation hours per season"); a.set_ylim(0, 330)
 a.set_title("(a) How right the filter's model is", loc="left")
 a.legend(frameon=False, loc="upper right")
@@ -30,7 +30,7 @@ x = np.arange(len(cats)); w = .36
 for j, (loc, lab, col) in enumerate(SITES):
     vals = [T3[f"right={k} {loc}"]["hours"] for _, k in cats]
     bars = b.bar(x + (j - .5)*w, vals, width=w, color=col, label=lab)
-    for xi, v in zip(x + (j - .5)*w, vals): b.text(xi, v + 3, f"{v:.0f}", ha="center", va="bottom", fontsize=6.5)
+    for xi, v in zip(x + (j - .5)*w, vals): b.text(xi, v + 3, f"{v:.0f}", ha="center", va="bottom", fontsize=6.5, zorder=5, bbox=dict(facecolor="white", edgecolor="none", pad=.4))  # white box keeps labels readable over the dashed lines
     b.hlines(base[loc], -.5, len(cats) - .5, color=col, ls="--", lw=.8)
 b.set_xticks(x, [c[0] for c in cats]); b.set_xlim(-.5, len(cats) - .5); b.set_ylim(0, 235)
 b.set_ylabel("Violation hours per season")
