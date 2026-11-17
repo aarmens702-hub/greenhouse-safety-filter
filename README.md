@@ -4,6 +4,9 @@ Code, frozen results and figure scripts for the workshop paper *Separating Safet
 Predictive Safety Filter for Greenhouse Climate Control* (2026), built on
 [GreenLight-Gym](https://github.com/BartvLaatum/GreenLight-Gym2) (gl_gym 0.3.2).
 
+**Paper:** [PDF](https://aarmens702-hub.github.io/greenhouse-safety-filter/Sidhu_2026_safety_filter.pdf)
+(under review at the AAAI-27 Workshop on AI in Agriculture).
+
 ![The predictive safety filter](figures/out/fig1_system.png)
 
 ## How the filter works
@@ -140,9 +143,15 @@ and no sealed test weather was used.
 
 ## Citation
 
-Paper details to follow. Until then, see `CITATION.cff`.
-
-## Citation
-
-If you use this code, please cite the paper (full reference to follow) and GreenLight-Gym
+If you use this code, please cite the paper and GreenLight-Gym
 (van Laatum, van Henten and Boersma, 2025). `CITATION.cff` holds the software citation.
+
+```bibtex
+@misc{sidhu2026safetyfilter,
+  author = {Sidhu, Aarmen},
+  title  = {Separating Safety from Profit: A Predictive Safety Filter for Greenhouse Climate Control},
+  note   = {Under review at the AAAI-27 Workshop on AI in Agriculture},
+  year   = {2026},
+  url    = {https://aarmens702-hub.github.io/greenhouse-safety-filter/}
+}
+```
